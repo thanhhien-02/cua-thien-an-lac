@@ -1,0 +1,16 @@
+{
+  "name": "Cửa Thiền An Lạc - Đi Chùa & Tĩnh Tâm Online",
+  "short_name": "Cửa Thiền",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1e130c",
+  "theme_color": "#3c2415",
+  "description": "Không gian chiêm bái chùa Việt, gõ mõ tụng kinh, thỉnh chuông, thắp nhang và nuôi dưỡng tâm an.",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪷</text></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

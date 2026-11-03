@@ -1,0 +1,1986 @@
+/* ================================================================
+   CỬA THIỀN AN LẠC - ĐI CHÙA ONLINE VIỆT NAM (STYLESHEET V3)
+   - Khắc phục 100% lỗi phông chữ tiếng Việt (bỏ hoàn toàn Georgia)
+   - Hệ thống đồ họa 2.5D Isometric chùa Việt Bắc - Trung - Nam
+   - Bản đồ 3 miền tương tác & chuyển đổi chùa mượt mà
+   ================================================================ */
+
+:root {
+  --bg-primary: #180e08;
+  --bg-card: #25160d;
+  --bg-surface: #321d12;
+  --bg-elevated: #442718;
+  --text-main: #f5ebe0;
+  --text-muted: #c4ab94;
+  --accent-gold: #e5b358;
+  --accent-gold-hover: #fcd37c;
+  --accent-lotus: #e28da4;
+  --accent-jade: #4fa882;
+  --accent-vermilion: #b33927;
+  --border-color: rgba(229, 179, 88, 0.28);
+  --shadow-warm: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+  /* Tuyệt đối KHÔNG dùng Georgia vì bị lỗi tách rời dấu tiếng Việt trên Windows */
+  --font-serif: "Playfair Display", "Times New Roman", "Segoe UI", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-image: 
+    radial-gradient(circle at 50% 8%, rgba(229, 179, 88, 0.12), transparent 55%),
+    linear-gradient(180deg, #130a05 0%, #1c1009 100%);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 960px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(26, 15, 9, 0.92);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  position: relative;
+  box-shadow: var(--shadow-warm);
+}
+
+/* ================= HEADER ================= */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 22px;
+  background: linear-gradient(180deg, #28170e 0%, #1b0e08 100%);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-lotus {
+  font-size: 2.1rem;
+  filter: drop-shadow(0 0 12px rgba(226, 141, 164, 0.7));
+  animation: floatLotus 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes floatLotus {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -3px, 0); }
+}
+
+.site-title h1 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.3px;
+  line-height: 1.25;
+}
+
+.site-title .subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge-profile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 7px 14px;
+  border-radius: 20px;
+  color: var(--text-main);
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.badge-profile:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-gold);
+}
+
+.dharma-icon {
+  color: var(--accent-gold);
+}
+
+.btn-icon {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.15rem;
+  transition: transform 0.2s;
+  user-select: none;
+}
+
+.btn-icon:hover {
+  transform: scale(1.06);
+  background: var(--bg-elevated);
+}
+
+/* ================= MAIN NAVIGATION (TABS) ================= */
+.main-nav {
+  display: flex;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+  scrollbar-width: none;
+  user-select: none;
+}
+
+.main-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-tab {
+  flex: 1;
+  min-width: 90px;
+  padding: 12px 6px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav-tab .tab-icon {
+  font-size: 1.3rem;
+}
+
+.nav-tab:hover {
+  color: var(--text-main);
+  background: rgba(229, 179, 88, 0.06);
+}
+
+.nav-tab.active {
+  color: var(--accent-gold);
+  border-bottom-color: var(--accent-gold);
+  background: rgba(229, 179, 88, 0.12);
+  font-weight: 600;
+}
+
+/* ================= CONTENT AREA ================= */
+.content-area {
+  flex: 1;
+  padding: 20px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate3d(0, 5px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.section-intro {
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.section-intro h2 {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.section-intro p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* ================= THANH CHÀO & TỰ ĐẶT PHÁP DANH TRỰC TIẾP ================= */
+.user-welcome-bar {
+  background: linear-gradient(135deg, #2b180e 0%, #1c0e07 100%);
+  border: 1px solid var(--accent-gold);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.welcome-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.welcome-label {
+  font-size: 0.88rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.name-edit-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#inline-user-name {
+  background: #120904;
+  color: #fff;
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  outline: none;
+  width: 170px;
+  transition: all 0.2s;
+}
+
+#inline-user-name:focus {
+  border-color: var(--accent-gold);
+  width: 200px;
+  box-shadow: 0 0 10px rgba(229, 179, 88, 0.4);
+}
+
+.btn-save-inline, .btn-dice-name {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--accent-gold);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-save-inline {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  border-color: var(--accent-gold);
+}
+
+.btn-save-inline:hover {
+  background: var(--accent-gold-hover);
+}
+
+.btn-dice-name:hover {
+  background: var(--bg-elevated);
+}
+
+.live-sangha-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(79, 168, 130, 0.15);
+  border: 1px solid rgba(79, 168, 130, 0.4);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  color: #8ee4bc;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #4fa882;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #4fa882;
+  animation: pulseDot 1.8s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+/* ================= ĐẠO TRÀNG ĐỒNG TU (MỌI NGƯỜI CÙNG GÕ MÕ) ================= */
+.sangha-hall-card {
+  background: linear-gradient(180deg, #23140c 0%, #190d07 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-top: 16px;
+  box-shadow: var(--shadow-warm);
+}
+
+.sangha-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid rgba(229, 179, 88, 0.15);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.sangha-title h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--accent-gold);
+  line-height: 1.3;
+}
+
+.sangha-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.sangha-sound-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #3d261a;
+  transition: 0.3s;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--text-muted);
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--accent-jade);
+  border-color: var(--accent-jade);
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+  background-color: #fff;
+}
+
+.sangha-avatars-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 650px) {
+  .sangha-avatars-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sangha-member {
+  background: var(--bg-surface);
+  border: 1px solid rgba(229, 179, 88, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.sangha-member.is-user {
+  border-color: var(--accent-gold);
+  background: rgba(229, 179, 88, 0.12);
+}
+
+.member-avatar {
+  font-size: 1.8rem;
+  position: relative;
+  transition: transform 0.1s ease;
+}
+
+.member-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 179, 88, 0.6) 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.sangha-member.chanting .member-halo {
+  opacity: 1;
+  animation: haloRipple 0.6s ease-out;
+}
+
+.sangha-member.chanting .member-avatar {
+  transform: scale(1.15);
+}
+
+@keyframes haloRipple {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.8); opacity: 0; }
+}
+
+.member-name {
+  font-size: 0.76rem;
+  color: var(--text-main);
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.member-status {
+  font-size: 0.68rem;
+  color: var(--accent-gold);
+}
+
+.sangha-live-feed {
+  background: #140b06;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  border-left: 3px solid var(--accent-gold);
+}
+
+.feed-ticker {
+  flex: 1;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.3s ease;
+}
+
+.feed-item {
+  color: #f7d594;
+}
+
+/* ================= QUICK TEMPLE SELECTOR BAR (CHỌN CHÙA NGAY) ================= */
+.quick-temple-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quick-bar-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quick-bar-title span {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.btn-open-map-tab {
+  background: transparent;
+  border: 1px solid var(--accent-gold);
+  color: var(--accent-gold);
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-open-map-tab:hover {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+}
+
+.temple-quick-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.temple-quick-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.temple-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 7px 14px;
+  border-radius: 20px;
+  color: var(--text-main);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.temple-chip:hover {
+  border-color: var(--accent-gold);
+  background: var(--bg-elevated);
+}
+
+.temple-chip.active {
+  background: linear-gradient(135deg, #aa7728 0%, #e5b358 100%);
+  color: #1a0f08;
+  font-weight: 700;
+  border-color: var(--accent-gold);
+  box-shadow: 0 2px 10px rgba(229, 179, 88, 0.35);
+}
+
+/* ================= 2.5D ISOMETRIC SACRED ALTAR (ĐIỆN THỜ ĐỒ HỌA 2.5D) ================= */
+.current-temple-banner {
+  background: linear-gradient(135deg, rgba(65, 41, 28, 0.95) 0%, rgba(35, 20, 13, 0.95) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.temple-tag {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  letter-spacing: 1px;
+}
+
+.temple-mini-info h2 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.temple-mini-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.btn-change-temple {
+  background: var(--bg-surface);
+  color: var(--accent-gold);
+  border: 1px solid var(--border-color);
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-change-temple:hover {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+}
+
+/* KHU VỰC ĐỒ HỌA 2.5D & BÀN THỜ */
+.altar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.altar-backdrop {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--shadow-warm);
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: #190f09;
+}
+
+/* Vùng chứa bức tranh 2.5D Isometric của ngôi chùa */
+.temple-scenic-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.temple-scenic-art svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.altar-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(19, 10, 5, 0.15) 0%, rgba(25, 14, 8, 0.7) 65%, rgba(25, 14, 8, 0.95) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.altar-foreground {
+  position: relative;
+  z-index: 3;
+  padding: 20px 20px 10px;
+  text-align: center;
+}
+
+.buddha-statue {
+  font-size: 4.8rem;
+  filter: drop-shadow(0 0 25px rgba(229, 179, 88, 0.8));
+  animation: pulseGlow 5s ease-in-out infinite;
+  will-change: filter;
+  user-select: none;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { filter: drop-shadow(0 0 18px rgba(229, 179, 88, 0.6)); }
+  50% { filter: drop-shadow(0 0 32px rgba(229, 179, 88, 0.95)); }
+}
+
+/* LƯ HƯƠNG & NHANG */
+.incense-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -30px;
+  position: relative;
+  z-index: 5;
+}
+
+#smoke-canvas {
+  pointer-events: none;
+  margin-bottom: -15px;
+}
+
+.incense-burner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.burner-bowl {
+  font-size: 3.2rem;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+.incense-sticks {
+  position: absolute;
+  top: -15px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.incense-stick {
+  width: 4px;
+  height: 48px;
+  background: linear-gradient(to top, #8b4513 0%, #ff4500 95%, #ffeb3b 100%);
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 0 8px #ff4500;
+  animation: burnFlicker 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes burnFlicker {
+  0% { filter: drop-shadow(0 0 4px #ff5722); }
+  100% { filter: drop-shadow(0 0 9px #ffeb3b); }
+}
+
+.incense-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-ritual {
+  background: linear-gradient(180deg, #d4a359 0%, #aa7728 100%);
+  color: #1a0f08;
+  font-weight: 600;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(212, 163, 89, 0.3);
+  transition: transform 0.15s, filter 0.15s;
+  user-select: none;
+}
+
+.btn-ritual:hover {
+  transform: translate3d(0, -2px, 0);
+  filter: brightness(1.1);
+}
+
+.btn-ritual.secondary {
+  background: var(--bg-surface);
+  color: var(--accent-gold);
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+}
+
+.btn-ritual.secondary:hover {
+  background: var(--bg-elevated);
+}
+
+.incense-status-text {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+/* PHÁP KHÍ GRID */
+.rituals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  contain: content;
+}
+
+@media (max-width: 650px) {
+  .rituals-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ritual-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-warm);
+}
+
+.ritual-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ritual-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--accent-gold);
+}
+
+.badge-count {
+  background: rgba(229, 179, 88, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(229, 179, 88, 0.3);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.ritual-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+kbd {
+  background: #42291d;
+  border: 1px solid #6b4430;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+}
+
+.mo-touch-area,
+.bell-touch-area {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 10px 0;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.mo-shape {
+  font-size: 4.5rem;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+  transition: transform 0.06s ease;
+  will-change: transform;
+}
+
+.mo-touch-area:active .mo-shape {
+  transform: scale(0.92) rotate(-3deg);
+}
+
+.sound-wave {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--accent-gold);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.sound-wave.active {
+  animation: soundRipple 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes soundRipple {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.chant-display {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--accent-gold);
+  min-height: 26px;
+  margin: 6px 0 12px;
+}
+
+.mo-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.btn-sub {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.btn-sub:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-gold);
+}
+
+.btn-sub.text-only {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-muted);
+}
+
+.btn-sub.text-only:hover {
+  color: #fff;
+}
+
+.mala-beads-container {
+  width: 100%;
+  margin-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 10px;
+}
+
+.mala-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.mala-bar {
+  width: 100%;
+  height: 8px;
+  background: #1e130c;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(229, 179, 88, 0.2);
+}
+
+.mala-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #aa7728, #e5b358);
+  transition: width 0.15s ease;
+}
+
+.bell-shape {
+  font-size: 4.5rem;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+  will-change: transform;
+}
+
+.bell-mallet {
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.bell-touch-area:active .bell-shape,
+.bell-touch-area.ringing .bell-shape {
+  animation: bellSway 0.9s ease-in-out;
+}
+
+@keyframes bellSway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(4deg); }
+  50% { transform: rotate(-3deg); }
+  75% { transform: rotate(2deg); }
+}
+
+.verse-quote {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.4;
+  margin: 8px 0;
+}
+
+.bell-timer-status {
+  font-size: 0.78rem;
+  color: var(--accent-jade);
+}
+
+/* RÚT QUẺ PHÁP CÚ */
+.dhammapada-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.card-title-row h3 {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  font-size: 1.15rem;
+}
+
+.tag-mindful {
+  background: rgba(79, 168, 130, 0.15);
+  color: var(--accent-jade);
+  border: 1px solid rgba(79, 168, 130, 0.3);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.74rem;
+}
+
+.sub-desc {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.draw-card-box {
+  text-align: center;
+}
+
+.btn-draw {
+  background: linear-gradient(180deg, #b33927 0%, #852213 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(179, 57, 39, 0.4);
+  transition: transform 0.15s, filter 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+
+.btn-draw:hover {
+  transform: translate3d(0, -2px, 0);
+  filter: brightness(1.15);
+}
+
+.shake-icon {
+  font-size: 1.3rem;
+  display: inline-block;
+}
+
+.btn-draw.shaking .shake-icon {
+  animation: shakeCard 0.4s ease-in-out infinite;
+}
+
+@keyframes shakeCard {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
+
+.card-result {
+  margin-top: 18px;
+  background: linear-gradient(135deg, #3d261a 0%, #2b180f 100%);
+  border: 1px solid var(--accent-gold);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  animation: flipIn 0.35s ease-out;
+}
+
+@keyframes flipIn {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.card-number {
+  font-size: 0.78rem;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.card-verse {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.card-meaning {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.card-advice {
+  background: rgba(229, 179, 88, 0.1);
+  border-left: 3px solid var(--accent-gold);
+  padding: 8px 12px;
+  font-size: 0.84rem;
+  color: var(--accent-gold);
+  border-radius: 0 4px 4px 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ================= TAB BẢN ĐỒ 3 MIỀN (INTERACTIVE REGION MAP & 2.5D ART) ================= */
+.map-region-filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.filter-btn:hover {
+  color: var(--text-main);
+  border-color: var(--accent-gold);
+}
+
+.filter-btn.active {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  font-weight: 700;
+  border-color: var(--accent-gold);
+}
+
+.temples-catalog {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 700px) {
+  .temples-catalog {
+    grid-template-columns: 1fr;
+  }
+}
+
+.temple-item-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.temple-item-card:hover {
+  transform: translate3d(0, -4px, 0);
+  border-color: var(--accent-gold);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.6);
+}
+
+.temple-item-card.active {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 16px rgba(229, 179, 88, 0.35);
+}
+
+.temple-art-canvas {
+  height: 180px;
+  position: relative;
+  background: #190f09;
+  overflow: hidden;
+}
+
+.temple-art-canvas svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.temple-region-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--accent-gold);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(229, 179, 88, 0.4);
+  z-index: 2;
+}
+
+.temple-body {
+  padding: 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.temple-body h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--accent-gold);
+  margin-bottom: 4px;
+}
+
+.temple-location {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.temple-desc {
+  font-size: 0.86rem;
+  color: var(--text-main);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.temple-meaning-box {
+  background: rgba(229, 179, 88, 0.08);
+  border-left: 3px solid var(--accent-gold);
+  padding: 8px 12px;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  margin-bottom: 16px;
+}
+
+.btn-visit-temple {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--accent-gold);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-visit-temple:hover,
+.temple-item-card.active .btn-visit-temple {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  font-weight: 700;
+}
+
+/* ================= TAB 3: HOA ĐĂNG & CẦU AN ================= */
+.wish-input-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  margin-bottom: 24px;
+}
+
+.wish-input-card h3 {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  margin-bottom: 6px;
+}
+
+.privacy-note {
+  font-size: 0.8rem;
+  color: var(--accent-jade);
+  margin-bottom: 12px;
+}
+
+.wish-form textarea {
+  width: 100%;
+  height: 85px;
+  background: #1a0f09;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  padding: 12px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  resize: none;
+}
+
+.wish-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+}
+
+.wish-form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.btn-send-wish {
+  background: linear-gradient(180deg, #e28da4 0%, #b25870 100%);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(226, 141, 164, 0.4);
+  transition: transform 0.15s;
+  user-select: none;
+}
+
+.btn-send-wish:hover {
+  transform: translate3d(0, -2px, 0);
+  filter: brightness(1.1);
+}
+
+.error-msg {
+  color: #ff6b6b;
+  font-size: 0.82rem;
+  margin-top: 8px;
+}
+
+/* DÒNG SÔNG HOA ĐĂNG */
+.river-container {
+  background: linear-gradient(180deg, #10212b 0%, #0a131b 100%);
+  border: 1px solid #234b5e;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-warm);
+  contain: content;
+}
+
+.river-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.35);
+  font-size: 0.84rem;
+  color: #8bc3db;
+  border-bottom: 1px solid rgba(139, 195, 219, 0.2);
+}
+
+.river-water {
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-lantern {
+  position: absolute;
+  background: rgba(30, 20, 15, 0.9);
+  border: 1px solid rgba(226, 141, 164, 0.5);
+  border-radius: 12px;
+  padding: 8px 14px;
+  max-width: 220px;
+  font-size: 0.8rem;
+  color: #fdf0f4;
+  box-shadow: 0 0 14px rgba(226, 141, 164, 0.4);
+  animation: floatRiver 16s linear infinite;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes floatRiver {
+  0% { transform: translate3d(110vw, 0, 0); }
+  50% { transform: translate3d(0vw, -8px, 0); }
+  100% { transform: translate3d(-120vw, 4px, 0); }
+}
+
+.lantern-flame {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 0 5px #ffeb3b);
+}
+
+/* ================= TAB 4: VƯỜN SEN TÂM THỨC ================= */
+.lotus-pond-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.lotus-pond-graphic {
+  text-align: center;
+  position: relative;
+  margin-bottom: 18px;
+  user-select: none;
+}
+
+.pond-lotus {
+  font-size: 5.5rem;
+  filter: drop-shadow(0 0 25px rgba(226, 141, 164, 0.6));
+  animation: breatheLotus 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes breatheLotus {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.pond-status {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.pond-status h3 {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  font-size: 1.35rem;
+  margin-bottom: 6px;
+}
+
+.pond-status p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.mindful-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.stat-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.daily-checkin-box {
+  background: #23160e;
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  border: 1px dashed rgba(229, 179, 88, 0.35);
+}
+
+.daily-checkin-box h4 {
+  color: var(--accent-gold);
+  font-size: 0.98rem;
+  margin-bottom: 12px;
+}
+
+.quest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.quest-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.quest-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-gold);
+  cursor: pointer;
+}
+
+.btn-quest-save {
+  width: 100%;
+  background: var(--accent-jade);
+  color: #fff;
+  border: none;
+  padding: 11px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.btn-quest-save:hover {
+  filter: brightness(1.1);
+}
+
+/* ================= TAB 5: CẨM NANG VÀO CHÙA ================= */
+.guide-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  contain: content;
+}
+
+.guide-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  position: relative;
+}
+
+.guide-card.highlight-border {
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 16px rgba(229, 179, 88, 0.15);
+}
+
+.guide-badge {
+  display: inline-block;
+  background: rgba(229, 179, 88, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(229, 179, 88, 0.3);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.guide-card h3 {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.guide-card p {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.guide-illustration {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .guide-illustration {
+    grid-template-columns: 1fr;
+  }
+}
+
+.door-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.door-box.active {
+  border-color: var(--accent-jade);
+  background: rgba(79, 168, 130, 0.12);
+}
+
+.door-box.disabled {
+  opacity: 0.65;
+  border-style: dashed;
+}
+
+.door-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.door-role {
+  font-size: 0.76rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.door-box p {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+.caution-note {
+  background: rgba(179, 57, 39, 0.18);
+  border-left: 3px solid var(--accent-vermilion);
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.86rem;
+  color: #f7b7ad;
+}
+
+.ritual-order-list {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ritual-order-list li {
+  font-size: 0.9rem;
+}
+
+.ritual-order-list strong {
+  color: var(--accent-gold);
+}
+
+.ritual-order-list p {
+  margin-top: 4px;
+  margin-bottom: 0;
+  color: var(--text-muted);
+}
+
+.guide-two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .guide-two-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+.col-box {
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+
+.col-box h4 {
+  color: var(--accent-gold);
+  font-size: 0.98rem;
+  margin-bottom: 10px;
+}
+
+.col-box ul,
+.tips-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.col-box ul li,
+.tips-checklist li {
+  font-size: 0.86rem;
+  color: var(--text-main);
+  position: relative;
+  padding-left: 16px;
+  line-height: 1.5;
+}
+
+.col-box ul li::before,
+.tips-checklist li::before {
+  content: "•";
+  color: var(--accent-gold);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* ================= MODAL BẢO MẬT & ĐẶT TÊN ================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(5px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.85);
+  animation: modalPop 0.2s ease-out;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-surface);
+}
+
+.modal-header h3 {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  font-size: 1.15rem;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.privacy-highlight {
+  font-size: 0.86rem;
+  color: var(--text-main);
+  background: rgba(79, 168, 130, 0.15);
+  border-left: 3px solid var(--accent-jade);
+  padding: 10px;
+  border-radius: 0 4px 4px 0;
+}
+
+.dharma-box, .passphrase-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.dharma-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#input-custom-name {
+  flex: 1;
+  background: #180e08;
+  color: var(--accent-gold);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  outline: none;
+}
+
+#input-custom-name:focus {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 8px rgba(229, 179, 88, 0.3);
+}
+
+#btn-save-custom-name {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  font-weight: 700;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+#btn-save-custom-name:hover {
+  background: var(--accent-gold-hover);
+}
+
+.name-hint {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.passcode-code {
+  font-family: monospace;
+  background: #180e08;
+  color: var(--accent-jade);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(79, 168, 130, 0.4);
+  font-size: 0.95rem;
+}
+
+.btn-secondary {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-elevated);
+}
+
+/* Modal chọn chùa */
+.temple-picker-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.picker-temple-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.picker-temple-row:hover,
+.picker-temple-row.active {
+  background: var(--bg-elevated);
+  border-color: var(--accent-gold);
+}
+
+.picker-icon {
+  font-size: 2rem;
+}
+
+.picker-info h4 {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  font-size: 1rem;
+}
+
+.picker-info p {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.main-footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  background: #140a05;
+}
